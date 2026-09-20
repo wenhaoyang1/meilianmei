@@ -94,6 +94,48 @@ git push -u origin main
 
 ---
 
+### 2.3 如果 PowerShell 窗口里粘不进 token
+
+Git 在终端里索要密码时，**不显示任何字符**（连 `*` 都没有），而且部分 PowerShell
+控制台里 `Ctrl+V` 是失效的。按顺序试：
+
+1. **在窗口内点鼠标右键** —— 就是粘贴（最万能，先试这个）
+2. **Ctrl+Shift+V** —— PowerShell 5.1 需要带 Shift
+3. **Alt+空格 → 编辑 → 粘贴** —— 用窗口左上角菜单
+
+如果三种都不行，用下面这个**完全不需要粘贴**的办法：把账号和 token 放进环境变量，
+让 Git 自己去读。
+
+**第 1 步**：设置环境变量（token 只在本窗口有效，关闭窗口即失效，不会落盘）
+
+```powershell
+$env:GIT_USER  = "wenhaoyang1"
+$env:GIT_TOKEN = "粘贴到这里"        # 这一步在普通命令行就能正常粘贴
+```
+
+**第 2 步**：让 Git 调用现成的脚本读取（仓库里已备好 `tools/git-askpass.ps1`）
+
+```powershell
+$env:GIT_ASKPASS = "powershell -NoProfile -ExecutionPolicy Bypass -File `"$PWD\tools\git-askpass.ps1`""
+```
+
+**第 3 步**：正常推送，不会再弹任何输入框
+
+```powershell
+git push -u origin main
+```
+
+**第 4 步**（可选，清理）：推送成功后关掉窗口即可，或手动清除
+
+```powershell
+Remove-Item Env:\GIT_TOKEN, Env:\GIT_ASKPASS
+```
+
+> 说明：`$env:GIT_TOKEN` 只存在于当前 PowerShell 进程，不会写入文件或注册表。
+> 推送一次成功后，Windows 凭据管理器会自动记住凭据，之后就不用再管这些变量了。
+
+---
+
 ## 第三步：开启 GitHub Pages
 
 推送完成后，仓库里已经有 `.github/workflows/deploy-pages.yml`，它会在每次推送时自动发布。
@@ -130,6 +172,7 @@ git push
 | 现象 | 原因与解决 |
 | --- | --- |
 | `Failed to connect to github.com port 443` | Git 没走代理，见 **2.1 节**；先确认加速器已开启且端口正确 |
+| PowerShell 里粘不进 token / 输入没反应 | 见 **2.3 节**：先试鼠标右键，或改用环境变量 + `git-askpass.ps1` |
 | 配了代理后仍连不上 | 把 `socks5://` 换成 `http://` 再试（端口类型判断错误） |
 | 换了网络后突然推送失败 | 可能是代理配置残留，用 `--unset` 取消代理 |
 | Actions 里报错 `Get Pages site failed` | Settings → Pages → Source 没有选成 **GitHub Actions** |
