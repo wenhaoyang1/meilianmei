@@ -62,7 +62,7 @@ node server.mjs
 
 3. 仓库 **Settings → Pages → Source** 选 **GitHub Actions**，等 Actions 跑完即可访问
 
-详细步骤、Token 获取方式、常见报错解决见 **`部署到GitHub.md`**。
+详细步骤、Token 获取方式、常见报错解决见 **[`部署到GitHub.md`](%E9%83%A8%E7%BD%B2%E5%88%B0GitHub.md)**。
 
 ---
 
