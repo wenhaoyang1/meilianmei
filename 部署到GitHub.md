@@ -148,7 +148,13 @@ Remove-Item Env:\GIT_TOKEN, Env:\GIT_ASKPASS
 
    ### https://wenhaoyang1.github.io/meilianmei/
 
-首次访问可能需要等 1 分钟左右才会生效。手机上打开同一个链接即可查看移动端效果。
+首次访问可能需要等 1–5 分钟才会生效（CDN 传播），这段时间反复刷新即可，
+**不是配置错误**。手机上打开同一个链接即可查看移动端效果。
+
+> **这一步没做，Actions 必定失败**：报错位置在「配置 Pages」步骤，显示
+> `Get Pages site failed`。工作流已加 `enablement: true` 兜底自动开启，
+> 但仍建议在 Settings 里手动选一次，最稳。
+> 选 Source 这一项**立即生效，没有"保存"按钮**。
 
 ---
 
@@ -175,10 +181,12 @@ git push
 | PowerShell 里粘不进 token / 输入没反应 | 见 **2.3 节**：先试鼠标右键，或改用环境变量 + `git-askpass.ps1` |
 | 配了代理后仍连不上 | 把 `socks5://` 换成 `http://` 再试（端口类型判断错误） |
 | 换了网络后突然推送失败 | 可能是代理配置残留，用 `--unset` 取消代理 |
-| Actions 里报错 `Get Pages site failed` | Settings → Pages → Source 没有选成 **GitHub Actions** |
+| Actions 里报错 `Get Pages site failed` | **最常见**：Settings → Pages → Source 没选成 **GitHub Actions**。详见第三步 |
+| Actions 显示成功但网址 404 | CDN 还在传播，等 1–5 分钟；确认网址结尾有 `/` |
+| 推送时报 `schannel: failed to receive handshake` | 加速器节点不稳定。可先试直连（部分网络现在能直连），或换节点 |
 | 推送被拒绝 `remote contains work you do not have` | 建仓库时勾选了 README。执行 `git pull --rebase origin main` 再 `git push` |
 | 页面样式丢失 / 图片不显示 | 确认 `assets/` 目录已一起推送（`git ls-files assets \| wc -l` 应为 249） |
-| 打开是 404 | 检查网址结尾是否有 `/`；仓库必须是 Public；等待部署完成 |
+| 打开是 404 | 检查网址结尾是否有 `/`；仓库必须是 Public；Actions 是否已成功 |
 | 想用自己的域名 | Settings → Pages → Custom domain 填入域名，再到域名服务商加一条 CNAME 记录 |
 
 ---
