@@ -23,6 +23,8 @@ node server.mjs
 网页制作/
 ├─ index.html                # 页面结构（首屏 / 理念 / 产品 / 系列 / 关于 / 联系）
 ├─ server.mjs                # 可选：本地预览服务器
+├─ 部署到GitHub.md            # 部署到 GitHub Pages 的详细步骤
+├─ .github/workflows/        # GitHub Actions：推送后自动部署
 ├─ assets/
 │  ├─ css/style.css          # 全部样式与动画
 │  ├─ js/data.js             # 产品数据（改内容只改这里）
@@ -40,7 +42,31 @@ node server.mjs
 
 ---
 
-## 三、产品与素材的对应关系
+## 三、部署到 GitHub Pages（发给别人看）
+
+目标网址：`https://wenhaoyang1.github.io/meilianmei/`
+
+本地 Git 仓库已初始化完成（分支 `main`），只需三步：
+
+1. 在 https://github.com/new 创建**空的公开仓库**，名字填 `meilianmei`（不要勾选 README）
+2. 推送：
+
+   ```powershell
+   cd C:\Users\Yangwenhao\Desktop\网页制作
+   git config user.name "wenhaoyang1"
+   git config user.email "你的GitHub邮箱"
+   git commit --amend --reset-author --no-edit
+   git remote add origin https://github.com/wenhaoyang1/meilianmei.git
+   git push -u origin main
+   ```
+
+3. 仓库 **Settings → Pages → Source** 选 **GitHub Actions**，等 Actions 跑完即可访问
+
+详细步骤、Token 获取方式、常见报错解决见 **`部署到GitHub.md`**。
+
+---
+
+## 四、产品与素材的对应关系
 
 网站内容全部来自 `产品素材/` 下的文件夹，共 **21 款产品 / 82 张原图**，归为 4 个系列：
 
@@ -59,7 +85,7 @@ node server.mjs
 
 ---
 
-## 四、如何自己修改内容
+## 五、如何自己修改内容
 
 ### 1. 改文字、价格、规格、产品说明
 
@@ -93,7 +119,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File "tools\build-assets.ps1"
 
 ---
 
-## 五、已实现的动效（滚动时触发）
+## 六、已实现的动效（滚动时触发）
 
 - 首屏：标题逐行上推、图片淡入、金色光带扫过、圆环文字缓慢旋转、浮动数据标签
 - 页面顶部金色滚动进度条
@@ -110,7 +136,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File "tools\build-assets.ps1"
 
 ---
 
-## 六、交互功能
+## 七、交互功能
 
 - **分类筛选**：全部 / 竖边 / 砂光拉丝 / 砂光激光 / 座式砂光，切换时重新播放卡片入场动画
 - **产品灯箱**：点击卡片查看该款全部实拍图，支持缩略图、左右箭头、键盘 ← →、Esc 关闭、手机左右滑动
@@ -119,7 +145,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File "tools\build-assets.ps1"
 
 ---
 
-## 七、自检命令
+## 八、自检命令
 
 ```powershell
 node tools/verify.mjs .      # 资源引用 / 图片完整性 / CSS·JS 语法
@@ -131,7 +157,7 @@ node tools/test-dom.mjs .    # 无头浏览器行为测试（需要 jsdom）
 
 ---
 
-## 八、移动端适配说明
+## 九、移动端适配说明
 
 - 断点：`620px` / `600px` / `960px` / `1000px` / `1080px`
 - 产品网格：手机 1 列 → 平板 2 列 → 桌面 3 列
