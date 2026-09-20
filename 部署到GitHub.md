@@ -19,6 +19,49 @@
 
 ## 第二步：推送代码
 
+### 2.1 国内网络：先给 Git 配代理
+
+如果推送时报 `Failed to connect to github.com port 443`，说明 Git 没有走你的加速器。
+假设你的加速器本地端口是 `10808`（SOCKS5），执行：
+
+```powershell
+git config --global http.https://github.com.proxy  socks5://127.0.0.1:10808
+git config --global https.https://github.com.proxy socks5://127.0.0.1:10808
+```
+
+这种写法**只让 github.com 走代理**，访问 Gitee、公司内网 Git 等不受影响。
+
+测试是否连通（能打印出一串 40 位哈希值就说明通了）：
+
+```powershell
+git ls-remote https://github.com/git/git.git HEAD
+```
+
+> `10808` 是 SOCKS5 端口就不用改。如果配了 SOCKS5 仍连不上，
+> 说明你的加速器那是 HTTP 端口，换成下面这组再试：
+>
+> ```powershell
+> git config --global http.https://github.com.proxy  http://127.0.0.1:10808
+> git config --global https.https://github.com.proxy http://127.0.0.1:10808
+> ```
+
+**用完想取消代理**（换到能直连的网络时，若发现连不上就取消它）：
+
+```powershell
+git config --global --unset http.https://github.com.proxy
+git config --global --unset https.https://github.com.proxy
+```
+
+查看当前代理配置是否生效：
+
+```powershell
+git config --global --get-regexp proxy
+```
+
+---
+
+### 2.2 修正提交署名并推送
+
 先修正提交署名（可选，但建议做，这样提交才会算在你账号名下）：
 
 ```powershell
@@ -86,6 +129,9 @@ git push
 
 | 现象 | 原因与解决 |
 | --- | --- |
+| `Failed to connect to github.com port 443` | Git 没走代理，见 **2.1 节**；先确认加速器已开启且端口正确 |
+| 配了代理后仍连不上 | 把 `socks5://` 换成 `http://` 再试（端口类型判断错误） |
+| 换了网络后突然推送失败 | 可能是代理配置残留，用 `--unset` 取消代理 |
 | Actions 里报错 `Get Pages site failed` | Settings → Pages → Source 没有选成 **GitHub Actions** |
 | 推送被拒绝 `remote contains work you do not have` | 建仓库时勾选了 README。执行 `git pull --rebase origin main` 再 `git push` |
 | 页面样式丢失 / 图片不显示 | 确认 `assets/` 目录已一起推送（`git ls-files assets \| wc -l` 应为 249） |
