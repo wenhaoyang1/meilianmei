@@ -110,7 +110,7 @@
     'contact.kEmail':  '邮箱',
     'contact.kPhone':  '电话',
     'contact.kAddr':   '地址',
-    'contact.addr':    '广东省 · 不锈钢制品产业带',
+    'contact.addr':    '浙江省金华市永康市芝英镇郭山村郭山畈6号',
 
     /* ---------- 页脚 ---------- */
     'footer.tagline':  '不锈钢家居器物制造 · 镜光 / 拉丝 / 砂光 / 激光',
@@ -250,7 +250,7 @@
     'contact.kEmail':  'Email',
     'contact.kPhone':  'Phone',
     'contact.kAddr':   'Address',
-    'contact.addr':    'Guangdong, China · Stainless Steel Manufacturing Belt',
+    'contact.addr':    'No. 6 Guoshanfan, Guoshan Village, Zhiying Town, Yongkang, Jinhua, Zhejiang, China',
 
     /* ---------- Footer ---------- */
     'footer.tagline':  'Stainless Steel Houseware · Mirror / Hairline / Satin / Laser',

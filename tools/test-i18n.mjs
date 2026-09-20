@@ -137,6 +137,13 @@ assert(statLabels.every(s => !/[\u4e00-\u9fa5]/.test(s)), '数据统计单位为
 const contactKeys = Array.from(doc.querySelectorAll('.contact__info em')).map(s => s.textContent.trim());
 assert(contactKeys.join(',') === 'Email,Phone,Address', '联系方式标签为英文：' + contactKeys.join(' / '));
 
+/* 联系信息内容（中英双语都要正确） */
+const addrEn = doc.querySelector('[data-i18n="contact.addr"]').textContent.trim();
+assert(/Yongkang/i.test(addrEn) && /Zhejiang/i.test(addrEn) && !/[\u4e00-\u9fa5]/.test(addrEn),
+  '英文版工厂地址已翻译：' + addrEn);
+const telHref = doc.querySelector('.contact__info a[href^="tel:"]').getAttribute('href');
+assert(telHref === 'tel:+8615925937208', '电话链接正确：' + telHref);
+
 /* ---------------- 4. 英文模式下打开灯箱 ---------------- */
 console.log('\n— 英文模式的灯箱 —');
 doc.querySelectorAll('.card')[0].dispatchEvent(new dom.window.MouseEvent('click', { bubbles: true }));
@@ -157,6 +164,8 @@ assert(doc.querySelector('.card__name').textContent.trim() === '竖边金色镜�
 const specsZh = Array.from(doc.querySelectorAll('#lbSpecs dt')).map(e => e.textContent.trim());
 assert(specsZh[0] === '表面工艺', '灯箱规格切回中文：' + specsZh.join(' / '));
 assert(doc.querySelectorAll('.card').length === 21, '切换语言后产品卡仍为 21 张');
+const addrZh = doc.querySelector('[data-i18n="contact.addr"]').textContent.trim();
+assert(addrZh === '浙江省金华市永康市芝英镇郭山村郭山畈6号', '中文版工厂地址正确：' + addrZh);
 dom.window.close();
 
 /* ---------------- 6. 老访客（已选英文）直接进站 ---------------- */
