@@ -849,7 +849,13 @@ svg text{ fill:currentColor; stroke:none; }
 .footer__copy{
   grid-column:1/-1; margin-top:12px; padding-top:26px; border-top:1px solid var(--line);
   font-size:12px; color:#6c6a66;
+  display:flex; flex-wrap:wrap; gap:6px 16px; align-items:center;
 }
+.footer__repo{
+  color:#8c8a86; border-bottom:1px solid transparent;
+  transition:color .4s var(--ease), border-bottom-color .4s var(--ease);
+}
+.footer__repo:hover{ color:var(--gold); border-bottom-color:var(--gold); }
 
 /* ---------- 19. 产品灯箱 ---------- */
 .lightbox{
