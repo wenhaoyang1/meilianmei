@@ -37,6 +37,10 @@ jobs:
 
       - name: 配置 Pages
         uses: actions/configure-pages@v5
+        with:
+          # 若仓库尚未开启 Pages，允许工作流自动开启，
+          # 避免出现 "Get Pages site failed" 报错
+          enablement: true
 
       - name: 打包网站（整个仓库即为站点，无需构建）
         uses: actions/upload-pages-artifact@v3
