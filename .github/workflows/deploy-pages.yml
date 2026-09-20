@@ -1,0 +1,48 @@
+# 自动部署到 GitHub Pages
+# 触发条件：向 main 分支推送（或在 Actions 页面手动触发）
+#
+# 使用方法：
+#   1. 把本仓库推送到 GitHub
+#   2. 仓库 Settings → Pages → Build and deployment → Source 选择 "GitHub Actions"
+#   3. 推送后在 Actions 页面即可看到部署进度，完成后访问
+#      https://<你的用户名>.github.io/<仓库名>/
+
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 同一时间只保留一次部署，新的推送会取消排队中的旧任务
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 配置 Pages
+        uses: actions/configure-pages@v5
+
+      - name: 打包网站（整个仓库即为站点，无需构建）
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - name: 部署
+        id: deployment
+        uses: actions/deploy-pages@v4
