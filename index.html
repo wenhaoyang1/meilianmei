@@ -41,14 +41,16 @@
     </a>
 
     <nav class="nav__links" aria-label="主导航">
-      <a href="#philosophy" data-nav>理念</a>
-      <a href="#products" data-nav>产品</a>
-      <a href="#series" data-nav>系列</a>
-      <a href="#about" data-nav>关于</a>
-      <a href="#contact" data-nav>联系</a>
+      <a href="#philosophy" data-nav data-i18n="nav.philosophy">理念</a>
+      <a href="#products" data-nav data-i18n="nav.products">产品</a>
+      <a href="#series" data-nav data-i18n="nav.series">系列</a>
+      <a href="#about" data-nav data-i18n="nav.about">关于</a>
+      <a href="#contact" data-nav data-i18n="nav.contact">联系</a>
     </nav>
 
-    <a class="btn btn--ghost nav__cta" href="#contact" data-magnetic>获取图册</a>
+    <button class="lang-btn" id="langBtn" type="button" data-i18n="nav.langBtn" aria-label="Switch language">EN</button>
+
+    <a class="btn btn--ghost nav__cta" href="#contact" data-magnetic data-i18n="nav.cta">获取图册</a>
 
     <button class="burger" id="burger" aria-label="打开菜单" aria-expanded="false">
       <span></span><span></span>
@@ -59,15 +61,50 @@
 <!-- 移动端菜单 -->
 <div class="drawer" id="drawer" aria-hidden="true">
   <nav class="drawer__links">
-    <a href="#philosophy"><em>01</em>理念</a>
-    <a href="#products"><em>02</em>产品</a>
-    <a href="#series"><em>03</em>系列</a>
-    <a href="#about"><em>04</em>关于</a>
-    <a href="#contact"><em>05</em>联系</a>
+    <a href="#philosophy"><em>01</em><span data-i18n="nav.philosophy">理念</span></a>
+    <a href="#products"><em>02</em><span data-i18n="nav.products">产品</span></a>
+    <a href="#series"><em>03</em><span data-i18n="nav.series">系列</span></a>
+    <a href="#about"><em>04</em><span data-i18n="nav.about">关于</span></a>
+    <a href="#contact"><em>05</em><span data-i18n="nav.contact">联系</span></a>
   </nav>
   <div class="drawer__foot">
-    <span>不锈钢家居器物制造</span>
+    <span data-i18n="footer.tagline">不锈钢家居器物制造</span>
     <a href="mailto:hello@meilianmei.com">hello@meilianmei.com</a>
+  </div>
+</div>
+
+<!-- ================= 语言选择 ================= -->
+<div class="gate" id="gate" role="dialog" aria-modal="true" aria-labelledby="gateTitle">
+  <div class="gate__noise" aria-hidden="true"></div>
+
+  <div class="gate__inner">
+    <div class="gate__brand">
+      <span class="gate__brand-cn">美联美</span>
+      <span class="gate__brand-en">MEILIANMEI</span>
+    </div>
+
+    <p class="gate__q" id="gateTitle">请选择语言</p>
+    <p class="gate__sub">Choose your language · 请选择您的语言</p>
+
+    <div class="gate__choices">
+      <button class="gate__choice" type="button" data-lang="zh">
+        <span class="gate__cn">中文</span>
+        <span class="gate__cn-en">Chinese</span>
+        <span class="gate__go" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </button>
+
+      <button class="gate__choice" type="button" data-lang="en">
+        <span class="gate__cn">English</span>
+        <span class="gate__cn-en">英文</span>
+        <span class="gate__go" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </button>
+    </div>
+
+    <p class="gate__hint">选择后可随时在右上角切换 · You can switch anytime at the top right</p>
   </div>
 </div>
 
@@ -87,21 +124,21 @@
         <p class="eyebrow" data-hero="1"><i></i>STAINLESS STEEL HOUSEWARE · SINCE 美联美</p>
 
         <h1 class="hero__title">
-          <span class="line"><span data-hero="2">以金属之名</span></span>
-          <span class="line"><span data-hero="3"><em>塑</em>桌面美学</span></span>
+          <span class="line"><span data-hero="2" data-i18n="hero.title1">以金属之名</span></span>
+          <span class="line"><span data-hero="3" data-i18n="hero.title2"><em>塑</em>桌面美学</span></span>
         </h1>
 
-        <p class="hero__desc" data-hero="4">
+        <p class="hero__desc" data-hero="4" data-i18n="hero.desc">
           镜光、拉丝、砂光、激光——四道核心工艺，<br>
           把冷冽的不锈钢打磨成有温度的器物。
         </p>
 
         <div class="hero__actions" data-hero="5">
           <a class="btn btn--gold" href="#products" data-magnetic>
-            <span>浏览全部产品</span>
+            <span data-i18n="hero.cta1">浏览全部产品</span>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </a>
-          <a class="btn btn--text" href="#philosophy" data-magnetic>了解工艺</a>
+          <a class="btn btn--text" href="#philosophy" data-magnetic data-i18n="hero.cta2">了解工艺</a>
         </div>
       </div>
 
@@ -119,10 +156,10 @@
         </figure>
 
         <div class="hero__chip hero__chip--a" data-hero="7" data-float="1">
-          <b>304</b><span>食品级不锈钢</span>
+          <b>304</b><span data-i18n="hero.chipA">食品级不锈钢</span>
         </div>
         <div class="hero__chip hero__chip--b" data-hero="8" data-float="2">
-          <b>21</b><span>款在售产品</span>
+          <b>21</b><span data-i18n="hero.chipB">款在售产品</span>
         </div>
       </div>
     </div>
@@ -137,10 +174,15 @@
   <section class="marquee-wrap" id="marquee" aria-label="产品工艺关键词">
     <div class="marquee" data-marquee>
       <div class="marquee__track">
-        <span>镜光 MIRROR</span><i>◆</i><span>拉丝 HAIRLINE</span><i>◆</i><span>砂光 SATIN</span><i>◆</i>
-        <span>激光 LASER</span><i>◆</i><span>食品级 304</span><i>◆</i><span>竖边直筒</span><i>◆</i>
-        <span>镜光 MIRROR</span><i>◆</i><span>拉丝 HAIRLINE</span><i>◆</i><span>砂光 SATIN</span><i>◆</i>
-        <span>激光 LASER</span><i>◆</i><span>食品级 304</span><i>◆</i><span>竖边直筒</span><i>◆</i>
+        <span data-lang-item="zh">镜光 MIRROR</span><i>◆</i><span data-lang-item="zh">拉丝 HAIRLINE</span><i>◆</i><span data-lang-item="zh">砂光 SATIN</span><i>◆</i>
+        <span data-lang-item="zh">激光 LASER</span><i>◆</i><span data-lang-item="zh">食品级 304</span><i>◆</i><span data-lang-item="zh">竖边直筒</span><i>◆</i>
+        <span data-lang-item="zh">镜光 MIRROR</span><i>◆</i><span data-lang-item="zh">拉丝 HAIRLINE</span><i>◆</i><span data-lang-item="zh">砂光 SATIN</span><i>◆</i>
+        <span data-lang-item="zh">激光 LASER</span><i>◆</i><span data-lang-item="zh">食品级 304</span><i>◆</i><span data-lang-item="zh">竖边直筒</span><i>◆</i>
+
+        <span data-lang-item="en">MIRROR POLISHED</span><i>◆</i><span data-lang-item="en">HAIRLINE BRUSHED</span><i>◆</i><span data-lang-item="en">SATIN SANDING</span><i>◆</i>
+        <span data-lang-item="en">LASER ENGRAVED</span><i>◆</i><span data-lang-item="en">FOOD-GRADE 304</span><i>◆</i><span data-lang-item="en">VERTICAL EDGE</span><i>◆</i>
+        <span data-lang-item="en">MIRROR POLISHED</span><i>◆</i><span data-lang-item="en">HAIRLINE BRUSHED</span><i>◆</i><span data-lang-item="en">SATIN SANDING</span><i>◆</i>
+        <span data-lang-item="en">LASER ENGRAVED</span><i>◆</i><span data-lang-item="en">FOOD-GRADE 304</span><i>◆</i><span data-lang-item="en">VERTICAL EDGE</span><i>◆</i>
       </div>
     </div>
   </section>
@@ -150,50 +192,50 @@
     <div class="shell">
       <div class="philosophy__head">
         <p class="eyebrow reveal"><i></i>OUR PHILOSOPHY</p>
-        <h2 class="h2 reveal" data-reveal="mask">
+        <h2 class="h2 reveal" data-reveal="mask" data-i18n="phi.title">
           器物无声，<br>质感自有分寸。
         </h2>
       </div>
 
       <div class="philosophy__body">
-        <p class="lede reveal" data-reveal="up">
+        <p class="lede reveal" data-reveal="up" data-i18n="phi.lede">
           美联美深耕不锈钢家居器物制造，从选材、成型到表面处理全部自主把控。
           我们相信好的器物不需要喧哗——它在光线下的反射、在手中的重量、
           在长期使用后的稳定表现，才是品质真正的表达。
         </p>
 
         <ul class="stats">
-          <li class="reveal" data-reveal="up"><b data-count="20" data-suffix="+">0</b><span>款在售产品</span></li>
-          <li class="reveal" data-reveal="up"><b data-count="4">0</b><span>核心表面工艺</span></li>
-          <li class="reveal" data-reveal="up"><b>304</b><span>食品级不锈钢</span></li>
-          <li class="reveal" data-reveal="up"><b data-count="82">0</b><span>张实物拍摄素材</span></li>
+          <li class="reveal" data-reveal="up"><b data-count="20" data-suffix="+">0</b><span data-i18n="phi.stat1">款在售产品</span></li>
+          <li class="reveal" data-reveal="up"><b data-count="4">0</b><span data-i18n="phi.stat2">核心表面工艺</span></li>
+          <li class="reveal" data-reveal="up"><b>304</b><span data-i18n="phi.stat3">食品级不锈钢</span></li>
+          <li class="reveal" data-reveal="up"><b data-count="82">0</b><span data-i18n="phi.stat4">张实物拍摄素材</span></li>
         </ul>
       </div>
 
       <div class="finishes">
         <article class="finish reveal" data-reveal="up" data-tilt>
           <span class="finish__no">01</span>
-          <h3>镜光</h3>
-          <em>MIRROR POLISHED</em>
-          <p>多道研磨抛光，表面如镜面般清晰映照，光线在曲面间流转，光感饱满而通透。</p>
+          <h3 data-i18n="phi.f1t">镜光</h3>
+          <em data-i18n="phi.f1e">MIRROR POLISHED</em>
+          <p data-i18n="phi.f1d">多道研磨抛光，表面如镜面般清晰映照，光线在曲面间流转，光感饱满而通透。</p>
         </article>
         <article class="finish reveal" data-reveal="up" data-tilt>
           <span class="finish__no">02</span>
-          <h3>拉丝</h3>
-          <em>HAIRLINE BRUSHED</em>
-          <p>细腻的定向发丝纹，触感温润不沾指纹，哑光质感中透出金属本色。</p>
+          <h3 data-i18n="phi.f2t">拉丝</h3>
+          <em data-i18n="phi.f2e">HAIRLINE BRUSHED</em>
+          <p data-i18n="phi.f2d">细腻的定向发丝纹，触感温润不沾指纹，哑光质感中透出金属本色。</p>
         </article>
         <article class="finish reveal" data-reveal="up" data-tilt>
           <span class="finish__no">03</span>
-          <h3>砂光</h3>
-          <em>SATIN SANDING</em>
-          <p>均匀细致的砂面处理，光泽内敛柔和，低调之中见细节。</p>
+          <h3 data-i18n="phi.f3t">砂光</h3>
+          <em data-i18n="phi.f3e">SATIN SANDING</em>
+          <p data-i18n="phi.f3d">均匀细致的砂面处理，光泽内敛柔和，低调之中见细节。</p>
         </article>
         <article class="finish reveal" data-reveal="up" data-tilt>
           <span class="finish__no">04</span>
-          <h3>激光</h3>
-          <em>LASER ENGRAVED</em>
-          <p>在哑光底面上以激光雕刻几何纹理，角度变换时呈现若隐若现的光纹层次。</p>
+          <h3 data-i18n="phi.f4t">激光</h3>
+          <em data-i18n="phi.f4e">LASER ENGRAVED</em>
+          <p data-i18n="phi.f4d">在哑光底面上以激光雕刻几何纹理，角度变换时呈现若隐若现的光纹层次。</p>
         </article>
       </div>
     </div>
@@ -205,9 +247,9 @@
       <header class="section-head">
         <div>
           <p class="eyebrow reveal"><i></i>PRODUCT COLLECTION</p>
-          <h2 class="h2 reveal" data-reveal="mask">全部产品</h2>
+          <h2 class="h2 reveal" data-reveal="mask" data-i18n="prod.title">全部产品</h2>
         </div>
-        <p class="section-head__desc reveal" data-reveal="up">
+        <p class="section-head__desc reveal" data-reveal="up" data-i18n="prod.desc">
           共 21 款在售产品，按竖边、砂光拉丝、砂光激光与座式砂光四大系列划分。
           点击任意产品查看多角度实拍。
         </p>
@@ -215,17 +257,17 @@
 
       <!-- 分类筛选 -->
       <div class="filters reveal" data-reveal="up" role="tablist" aria-label="产品分类筛选">
-        <button class="filter is-active" data-filter="all" role="tab" aria-selected="true">全部 <em>21</em></button>
-        <button class="filter" data-filter="shubian" role="tab" aria-selected="false">竖边系列 <em>5</em></button>
-        <button class="filter" data-filter="shaguang-brush" role="tab" aria-selected="false">砂光拉丝 <em>9</em></button>
-        <button class="filter" data-filter="shaguang-laser" role="tab" aria-selected="false">砂光激光 <em>6</em></button>
-        <button class="filter" data-filter="zuoshi" role="tab" aria-selected="false">座式砂光 <em>1</em></button>
+        <button class="filter is-active" data-filter="all" role="tab" aria-selected="true"><span data-i18n="prod.filterAll">全部</span> <em>21</em></button>
+        <button class="filter" data-filter="shubian" role="tab" aria-selected="false"><span data-i18n="prod.f1">竖边系列</span> <em>5</em></button>
+        <button class="filter" data-filter="shaguang-brush" role="tab" aria-selected="false"><span data-i18n="prod.f2">砂光拉丝</span> <em>9</em></button>
+        <button class="filter" data-filter="shaguang-laser" role="tab" aria-selected="false"><span data-i18n="prod.f3">砂光激光</span> <em>6</em></button>
+        <button class="filter" data-filter="zuoshi" role="tab" aria-selected="false"><span data-i18n="prod.f4">座式砂光</span> <em>1</em></button>
       </div>
     </div>
 
     <div class="shell">
       <div class="grid" id="productGrid"><!-- JS 渲染 --></div>
-      <p class="grid-empty" id="gridEmpty" hidden>该分类下暂无产品。</p>
+      <p class="grid-empty" id="gridEmpty" hidden data-i18n="prod.empty">该分类下暂无产品。</p>
     </div>
   </section>
 
@@ -235,9 +277,9 @@
       <header class="section-head">
         <div>
           <p class="eyebrow reveal"><i></i>SERIES OVERVIEW</p>
-          <h2 class="h2 reveal" data-reveal="mask">四大系列</h2>
+          <h2 class="h2 reveal" data-reveal="mask" data-i18n="series.title">四大系列</h2>
         </div>
-        <p class="section-head__desc reveal" data-reveal="up">
+        <p class="section-head__desc reveal" data-reveal="up" data-i18n="series.desc">
           不同表面工艺对应不同的使用场景与视觉气质，可按整体方案自由搭配。
         </p>
       </header>
@@ -251,13 +293,13 @@
         <div class="series-item__body">
           <span class="series-item__idx">01</span>
           <p class="eyebrow"><i></i>VERTICAL EDGE SERIES</p>
-          <h3>竖边系列</h3>
-          <p>直筒竖边立面，线条利落挺拔。镜光与拉丝两种表面处理，圆形套装成套出品，
+          <h3 data-i18n="series.s1t">竖边系列</h3>
+          <p data-i18n="series.s1d">直筒竖边立面，线条利落挺拔。镜光与拉丝两种表面处理，圆形套装成套出品，
              涵盖金色与银色两大色系，并提供配套底座。</p>
           <ul class="series-item__meta">
-            <li>镜光 / 拉丝</li><li>金色 / 银色</li><li>5 款</li>
+            <li data-i18n="series.s1m1">镜光 / 拉丝</li><li data-i18n="series.s1m2">金色 / 银色</li><li data-i18n="series.s1m3">5 款</li>
           </ul>
-          <button class="btn btn--line" data-jump="shubian" data-magnetic><span>查看该系列</span>
+          <button class="btn btn--line" data-jump="shubian" data-magnetic><span data-i18n="series.jump">查看该系列</span>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </button>
         </div>
@@ -270,13 +312,13 @@
         <div class="series-item__body">
           <span class="series-item__idx">02</span>
           <p class="eyebrow"><i></i>SATIN &amp; HAIRLINE SERIES</p>
-          <h3>砂光拉丝系列</h3>
-          <p>以砂光为底、拉丝为面的复合工艺，提供圆 8、圆 10、正方形、三角形、
+          <h3 data-i18n="series.s2t">砂光拉丝系列</h3>
+          <p data-i18n="series.s2d">以砂光为底、拉丝为面的复合工艺，提供圆 8、圆 10、正方形、三角形、
              八边形与内凹圆等多种形状选择，并可成套配置。</p>
           <ul class="series-item__meta">
-            <li>9 种款式</li><li>多形状</li><li>可成套</li>
+            <li data-i18n="series.s2m1">9 种款式</li><li data-i18n="series.s2m2">多形状</li><li data-i18n="series.s2m3">可成套</li>
           </ul>
-          <button class="btn btn--line" data-jump="shaguang-brush" data-magnetic><span>查看该系列</span>
+          <button class="btn btn--line" data-jump="shaguang-brush" data-magnetic><span data-i18n="series.jump">查看该系列</span>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </button>
         </div>
@@ -289,13 +331,13 @@
         <div class="series-item__body">
           <span class="series-item__idx">03</span>
           <p class="eyebrow"><i></i>SATIN &amp; LASER SERIES</p>
-          <h3>砂光激光系列</h3>
-          <p>砂光表面叠加激光雕刻纹理，在哑光底面上呈现细腻的几何光纹，
+          <h3 data-i18n="series.s3t">砂光激光系列</h3>
+          <p data-i18n="series.s3d">砂光表面叠加激光雕刻纹理，在哑光底面上呈现细腻的几何光纹，
              随观察角度变化而产生不同的明暗与反光。</p>
           <ul class="series-item__meta">
-            <li>6 种形状</li><li>激光纹理</li><li>哑光质感</li>
+            <li data-i18n="series.s3m1">6 种形状</li><li data-i18n="series.s3m2">激光纹理</li><li data-i18n="series.s3m3">哑光质感</li>
           </ul>
-          <button class="btn btn--line" data-jump="shaguang-laser" data-magnetic><span>查看该系列</span>
+          <button class="btn btn--line" data-jump="shaguang-laser" data-magnetic><span data-i18n="series.jump">查看该系列</span>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </button>
         </div>
@@ -308,13 +350,13 @@
         <div class="series-item__body">
           <span class="series-item__idx">04</span>
           <p class="eyebrow"><i></i>PEDESTAL SERIES</p>
-          <h3>座式砂光系列</h3>
-          <p>壶身与底座一体成型的座式结构，重心下沉、姿态稳重。整体砂光处理，
+          <h3 data-i18n="series.s4t">座式砂光系列</h3>
+          <p data-i18n="series.s4d">壶身与底座一体成型的座式结构，重心下沉、姿态稳重。整体砂光处理，
              光泽柔和内敛，是桌面场景中的视觉主体。</p>
           <ul class="series-item__meta">
-            <li>一体成型</li><li>重心稳固</li><li>整体砂光</li>
+            <li data-i18n="series.s4m1">一体成型</li><li data-i18n="series.s4m2">重心稳固</li><li data-i18n="series.s4m3">整体砂光</li>
           </ul>
-          <button class="btn btn--line" data-jump="zuoshi" data-magnetic><span>查看该系列</span>
+          <button class="btn btn--line" data-jump="zuoshi" data-magnetic><span data-i18n="series.jump">查看该系列</span>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </button>
         </div>
@@ -330,8 +372,8 @@
     <div class="banner__veil" aria-hidden="true"></div>
     <div class="banner__copy">
       <p class="eyebrow reveal"><i></i>CRAFT IN DETAIL</p>
-      <h2 class="reveal" data-reveal="mask">工艺，藏在细节里</h2>
-      <p class="reveal" data-reveal="up">
+      <h2 class="reveal" data-reveal="mask" data-i18n="banner.title">工艺，藏在细节里</h2>
+      <p class="reveal" data-reveal="up" data-i18n="banner.desc">
         每件器物都要经过成型、焊接、打磨、抛光与多道质检。<br>
         我们坚持把工序做足，因为手感和光泽无法取巧。
       </p>
@@ -343,18 +385,18 @@
     <div class="shell about__grid">
       <div class="about__copy">
         <p class="eyebrow reveal"><i></i>ABOUT US</p>
-        <h2 class="h2 reveal" data-reveal="mask">关于美联美</h2>
-        <p class="reveal" data-reveal="up">
+        <h2 class="h2 reveal" data-reveal="mask" data-i18n="about.title">关于美联美</h2>
+        <p class="reveal" data-reveal="up" data-i18n="about.p1">
           美联美是一家专注不锈钢家居器物的制造企业。产品线覆盖竖边套装、砂光拉丝件、
           砂光激光件与座式砂光器物，广泛应用于酒店、餐饮、茶室及居家场景。
         </p>
-        <p class="reveal" data-reveal="up">
+        <p class="reveal" data-reveal="up" data-i18n="about.p2">
           我们提供从选型、打样到批量出货的完整支持，可按客户需求调整尺寸、表面处理与包装方案。
         </p>
         <ul class="about__list">
-          <li class="reveal" data-reveal="up"><b>01</b><span>自主表面处理工艺线</span></li>
-          <li class="reveal" data-reveal="up"><b>02</b><span>支持来图来样定制</span></li>
-          <li class="reveal" data-reveal="up"><b>03</b><span>多道质检 · 出货前全检</span></li>
+          <li class="reveal" data-reveal="up"><b>01</b><span data-i18n="about.l1">自主表面处理工艺线</span></li>
+          <li class="reveal" data-reveal="up"><b>02</b><span data-i18n="about.l2">支持来图来样定制</span></li>
+          <li class="reveal" data-reveal="up"><b>03</b><span data-i18n="about.l3">多道质检 · 出货前全检</span></li>
         </ul>
       </div>
 
@@ -373,23 +415,23 @@
   <section class="section contact" id="contact">
     <div class="shell contact__inner">
       <p class="eyebrow reveal"><i></i>GET IN TOUCH</p>
-      <h2 class="contact__title reveal" data-reveal="mask">需要完整产品图册？</h2>
-      <p class="contact__desc reveal" data-reveal="up">
+      <h2 class="contact__title reveal" data-reveal="mask" data-i18n="contact.title">需要完整产品图册？</h2>
+      <p class="contact__desc reveal" data-reveal="up" data-i18n="contact.desc">
         留下联系方式，我们将发送全系列产品图册、规格尺寸与报价方案。
       </p>
 
       <div class="contact__actions reveal" data-reveal="up">
         <a class="btn btn--gold btn--lg" href="mailto:hello@meilianmei.com" data-magnetic>
-          <span>索取产品图册</span>
+          <span data-i18n="contact.cta1">索取产品图册</span>
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
-        <a class="btn btn--line btn--lg" href="tel:+8613800000000" data-magnetic>电话咨询</a>
+        <a class="btn btn--line btn--lg" href="tel:+8615925937208" data-magnetic data-i18n="contact.cta2">电话咨询</a>
       </div>
 
       <ul class="contact__info reveal" data-reveal="up">
-        <li><em>邮箱</em><a href="mailto:hello@meilianmei.com">hello@meilianmei.com</a></li>
-        <li><em>电话</em><a href="tel:+8613800000000">+86 138 0000 0000</a></li>
-        <li><em>地址</em><span>广东省 · 不锈钢制品产业带</span></li>
+        <li><em data-i18n="contact.kEmail">邮箱</em><a href="mailto:hello@meilianmei.com">hello@meilianmei.com</a></li>
+        <li><em data-i18n="contact.kPhone">电话</em><a href="tel:+8615925937208">+86 159 2593 7208</a></li>
+        <li><em data-i18n="contact.kAddr">地址</em><span data-i18n="contact.addr">广东省 · 不锈钢制品产业带</span></li>
       </ul>
     </div>
   </section>
@@ -401,25 +443,25 @@
     <div class="footer__brand">
       <span class="brand__cn">美联美</span>
       <span class="brand__en">MEILIANMEI</span>
-      <p>不锈钢家居器物制造 · 镜光 / 拉丝 / 砂光 / 激光</p>
+      <p data-i18n="footer.tagline">不锈钢家居器物制造 · 镜光 / 拉丝 / 砂光 / 激光</p>
     </div>
     <nav class="footer__nav" aria-label="页脚导航">
-      <a href="#philosophy">品牌理念</a>
-      <a href="#products">全部产品</a>
-      <a href="#series">四大系列</a>
-      <a href="#about">关于我们</a>
-      <a href="#contact">联系方式</a>
+      <a href="#philosophy" data-i18n="footer.nav1">品牌理念</a>
+      <a href="#products" data-i18n="footer.nav2">全部产品</a>
+      <a href="#series" data-i18n="footer.nav3">四大系列</a>
+      <a href="#about" data-i18n="footer.nav4">关于我们</a>
+      <a href="#contact" data-i18n="footer.nav5">联系方式</a>
     </nav>
-    <p class="footer__copy">
-      © <span id="year">2025</span> 美联美 MEILIANMEI. All rights reserved.
-      <a class="footer__repo" href="https://github.com/wenhaoyang1/meilianmei" target="_blank" rel="noopener">网站源码</a>
+    <p class="footer__copy" id="footerCopy">
+      <span data-i18n="footer.copy">© {year} 美联美 MEILIANMEI. 保留所有权利。</span>
+      <a class="footer__repo" href="https://github.com/wenhaoyang1/meilianmei" target="_blank" rel="noopener" data-i18n="footer.repo">网站源码</a>
     </p>
   </div>
 </footer>
 
 <!-- ================= 产品详情弹层 ================= -->
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="产品详情" aria-hidden="true">
-  <button class="lightbox__close" id="lbClose" aria-label="关闭">
+  <button class="lightbox__close" id="lbClose" aria-label="关闭" data-i18n-aria="lb.close">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
   </button>
 
@@ -453,7 +495,7 @@
 
     <div class="lightbox__foot">
       <span id="lbCounter">1 / 1</span>
-      <a class="btn btn--gold" href="#contact" id="lbInquiry"><span>咨询此款</span>
+      <a class="btn btn--gold" href="#contact" id="lbInquiry"><span data-i18n="lb.inquiry">咨询此款</span>
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
     </div>
@@ -461,6 +503,7 @@
 </div>
 
 <script src="assets/js/data.js"></script>
+<script src="assets/js/translations.js"></script>
 <script src="assets/js/main.js"></script>
 </body>
 </html>

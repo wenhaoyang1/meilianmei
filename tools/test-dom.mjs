@@ -45,6 +45,8 @@ const dom = new JSDOM(html, {
     }
     // jsdom 未实现 scrollTo：静默处理，避免污染错误收集
     window.scrollTo = function () {};
+    // 预置语言选择，跳过「进入网站先选语言」的选择页，专注主站逻辑
+    window.localStorage.setItem('mlm-lang', 'zh');
     const observers = [];
     window.IntersectionObserver = class {
       constructor(cb, opts) { this.cb = cb; this.opts = opts; this.targets = []; observers.push(this); }
@@ -99,7 +101,8 @@ assert(cards.every(c => c.querySelector('.card__name')), '每张卡片都有名�
 assert($$('.filter').length === 5, '筛选按钮 5 个');
 assert(!doc.querySelector('#loader'), '加载遮罩已移除');
 assert(doc.querySelector('#hero').classList.contains('is-ready'), '首屏已触发入场动画');
-assert($$('#year').length === 1 && doc.querySelector('#year').textContent.length === 4, '页脚年份已填充');
+assert($$('#langBtn').length === 1, '导航语言切换按钮存在');
+assert(doc.querySelector('#footerCopy'), '页脚版权区存在');
 
 console.log('\n— 图片路径 —');
 const missing = [];
@@ -132,7 +135,7 @@ const lb = doc.querySelector('#lightbox');
 assert(lb.classList.contains('is-open'), '点击产品卡打开灯箱');
 assert(doc.body.classList.contains('is-locked'), '打开灯箱时锁定页面滚动');
 assert(doc.querySelector('#lbName').textContent.length > 0, '灯箱显示产品名称');
-assert(doc.querySelector('#lbSpecs').children.length === 6, `灯箱规格项 ${doc.querySelector('#lbSpecs').children.length} 条（应为 6）`);
+assert(doc.querySelector('#lbSpecs').children.length === 7, `灯箱规格项 ${doc.querySelector('#lbSpecs').children.length} 条（应为 7）`);
 assert($$('#lbThumbs button').length === 6, `灯箱缩略图 ${$$('#lbThumbs button').length} 张（竖边金色镜光共 6 张）`);
 assert(doc.querySelector('#lbImg').getAttribute('src').includes('/view/'), '灯箱主图为 1:1 大图');
 

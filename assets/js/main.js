@@ -1,13 +1,15 @@
 /* =========================================================
    美联美 MEILIANMEI · 交互脚本
    assets/js/main.js
-   依赖：assets/js/data.js （提供 window.MLM）
+   依赖：assets/js/data.js（window.MLM）、assets/js/translations.js（window.MLM_I18N）
    ========================================================= */
 (function () {
   'use strict';
 
   const DATA = window.MLM;
   if (!DATA) { console.error('[MLM] 未找到产品数据，请确认 assets/js/data.js 已加载。'); return; }
+
+  const DICT = window.MLM_I18N || { zh: {}, en: {} };
 
   const { CATEGORY_BY_ID, PRODUCT_BY_SLUG, PRODUCTS } = DATA;
   const cardImg = DATA.cardImg;
@@ -22,6 +24,46 @@
 
   const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
   const pad2  = n => String(n).padStart(2, '0');
+
+  /* =======================================================
+     语言状态：zh / en（由进入网站时的选择页决定，可随时切换）
+     ======================================================= */
+  const LANG_KEY = 'mlm-lang';
+  const YEAR = new Date().getFullYear();
+  let lang = 'zh';
+  try {
+    const saved = localStorage.getItem(LANG_KEY);
+    if (saved === 'zh' || saved === 'en') lang = saved;
+  } catch (e) { /* 隐私模式等场景忽略 */ }
+
+  const t = (key, vars) => {
+    let s = (DICT[lang] && DICT[lang][key] != null) ? DICT[lang][key] : (DICT.zh[key] || key);
+    if (vars) Object.keys(vars).forEach(k => { s = s.split('{' + k + '}').join(vars[k]); });
+    return s;
+  };
+  const isEn    = () => lang === 'en';
+  const pName   = p => (isEn() && p.nameEn) ? p.nameEn : p.name;
+  const pDesc   = p => (isEn() && p.descEn) ? p.descEn : p.desc;
+  const cName   = c => (isEn() && c && c.nameEn) ? c.nameEn : (c ? c.name : '');
+  const cDesc   = c => (isEn() && c && c.descEn) ? c.descEn : (c ? c.desc : '');
+
+  /* 规格值（形状 / 尺寸 / 颜色）的英文对照 */
+  const SPEC_EN = {
+    '圆形': 'Round', '正方形': 'Square', '三角形': 'Triangle',
+    '八边形': 'Octagon', '内凹圆': 'Concave round', '座式': 'Pedestal',
+    '圆形套装': 'Round set', '方形套装': 'Square set', '10 cm 套装': '10 cm set',
+    '底座配件': 'Base accessory', '方形': 'Square', '三角': 'Triangle',
+    '八边': 'Octagon', '内凹': 'Concave', '10 cm': '10 cm', '8 cm': '8 cm',
+    '金色': 'Gold', '银色': 'Silver'
+  };
+  const spec = v => (isEn() && SPEC_EN[v]) ? SPEC_EN[v] : v;
+
+  /* 语言选择页 */
+  const gate = $('#gate');
+  /* 首次来访需等加载动画结束后再展示语言选择页 */
+  let pendingGate = false;
+  /* 当前分类筛选（语言切换后重绘网格时保持） */
+  let currentFilter = 'all';
 
   /* =======================================================
      0. 加载遮罩
@@ -45,7 +87,9 @@
       if (loader) loader.classList.add('is-done');
       document.body.classList.remove('is-locked');
       document.documentElement.classList.add('is-loaded');
-      startHero();
+      /* 首次来访：先让用户选语言；老访客：直接播放首屏动画 */
+      if (pendingGate) setTimeout(showGate, 620);
+      else startHero();
     }, 520);
     setTimeout(() => { if (loader && loader.parentNode) loader.parentNode.removeChild(loader); }, 1600);
   }
@@ -58,33 +102,69 @@
 
   function cardMarkup(p, i) {
     const cat  = CATEGORY_BY_ID[p.category];
-    const meta = [p.size, p.color, p.finish === 'mirror' ? '镜光' : p.finish === 'brush' ? '拉丝' : p.finish === 'sanding' ? '砂光' : '底座'];
+    const meta = [spec(p.size), spec(p.color), t('finish.' + p.finish)];
 
     return `
       <article class="card" data-category="${p.category}" data-index="${i}" tabindex="0"
-               role="button" aria-label="查看 ${p.name}">
+               role="button" aria-label="${pName(p)}">
         <div class="card__media">
-          <img class="card__img" src="${cardImg(p.slug, 1)}" alt="${p.name}"
+          <img class="card__img" src="${cardImg(p.slug, 1)}" alt="${pName(p)}"
                width="1100" height="825" loading="lazy" decoding="async">
           <span class="card__shine" aria-hidden="true"></span>
-          ${p.tag ? `<span class="card__tag">${p.tag}</span>` : ''}
-          <span class="card__count">${pad2(p.count)} VIEWS</span>
+          ${p.tag ? `<span class="card__tag">${isEn() && p.tagEn ? p.tagEn : p.tag}</span>` : ''}
+          <span class="card__count">${pad2(p.count)} ${t('prod.views')}</span>
           <div class="card__view">
-            <span>VIEW DETAIL</span>
+            <span>${t('prod.viewDetail')}</span>
             <i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i>
           </div>
         </div>
         <div class="card__body">
-          <span class="card__cat">${cat ? cat.name : ''}</span>
-          <h3 class="card__name">${p.name}</h3>
+          <span class="card__cat">${cName(cat)}</span>
+          <h3 class="card__name">${pName(p)}</h3>
           <ul class="card__meta">${meta.map(m => `<li>${m}</li>`).join('')}</ul>
-          <p class="card__desc">${p.desc}</p>
+          <p class="card__desc">${pDesc(p)}</p>
         </div>
       </article>`;
   }
 
+  // 首次渲染用 try/catch 兜底：gridEmpty / filter 等引用在脚本后段才初始化
   if (grid) {
+    try { grid.innerHTML = PRODUCTS.map(cardMarkup).join(''); }
+    catch (err) { console.error('[MLM] 产品网格首次渲染失败', err); }
+  }
+
+  /* 语言切换后重新渲染产品网格（文案随语言变化） */
+  function renderGrid() {
+    if (!grid) return;
     grid.innerHTML = PRODUCTS.map(cardMarkup).join('');
+    cards = $$('.card', grid);
+    cards.forEach((c, i) => { c.style.transitionDelay = (i % 6) * 80 + 'ms'; });
+
+    if ('IntersectionObserver' in window && !reduceMotion) {
+      const cio = new IntersectionObserver((entries) => {
+        entries.forEach((en) => {
+          if (!en.isIntersecting) return;
+          en.target.classList.add('is-in');
+          cio.unobserve(en.target);
+        });
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.06 });
+      cards.forEach(c => cio.observe(c));
+    } else {
+      cards.forEach(c => c.classList.add('is-in'));
+    }
+
+    /* 重绘后同步当前筛选状态（过滤器引用用 DOM 现查，避免初始化顺序问题） */
+    try {
+      applyFilter(currentFilter);
+    } catch (err) {
+      $$('.filter').forEach(b => {
+        b.classList.toggle('is-active', b.getAttribute('data-filter') === currentFilter);
+      });
+      cards.forEach(c => {
+        c.classList.toggle('is-filtered',
+          currentFilter !== 'all' && c.getAttribute('data-category') !== currentFilter);
+      });
+    }
   }
 
   /* =======================================================
@@ -115,7 +195,7 @@
   /* =======================================================
      3. 产品卡入场 + 数字滚动
      ======================================================= */
-  const cards = $$('.card');
+  let cards = $$('.card');
   if (cards.length) {
     cards.forEach((c, i) => { c.style.transitionDelay = (i % 6) * 80 + 'ms'; });
     if ('IntersectionObserver' in window && !reduceMotion) {
@@ -164,7 +244,7 @@
   }
 
   /* =======================================================
-     4. 首屏入场
+     4. 首屏入场 + 语言选择
      ======================================================= */
   const hero = $('#hero');
   function startHero() {
@@ -172,6 +252,92 @@
     hero.classList.add('is-ready');
     $$('[data-hero]', hero).forEach(el => el.classList.add('is-in'));
   }
+
+  /* 应用语言：替换所有 data-i18n 文案、页脚年份、产品卡与灯箱 */
+  function applyLang(next, opts) {
+    const options = opts || {};
+    lang = next;
+    try { localStorage.setItem(LANG_KEY, lang); } catch (e) { /* 忽略 */ }
+
+    document.documentElement.lang = isEn() ? 'en' : 'zh-CN';
+    document.documentElement.setAttribute('data-lang', lang);
+
+    /* 静态文案 */
+    $$('[data-i18n]').forEach((el) => {
+      const key = el.getAttribute('data-i18n');
+      let html = t(key, { year: YEAR });
+      /* 页脚版权等含 {year} 的模板 */
+      el.innerHTML = html;
+    });
+    $$('[data-i18n-aria]').forEach((el) => {
+      el.setAttribute('aria-label', t(el.getAttribute('data-i18n-aria')));
+    });
+
+    /* 统计数字单位（数字由计数器动画负责，这里只改单位文字） */
+    const statLabels = ['phi.stat1', 'phi.stat2', 'phi.stat3', 'phi.stat4'];
+    $$('.stats li span').forEach((el, i) => { if (statLabels[i]) el.innerHTML = t(statLabels[i]); });
+
+    /* 滚动信息带：切换语言对应的一整套文案 */
+    $$('.marquee').forEach(el => el.classList.toggle('is-en', isEn()));
+
+    /* 产品卡全部重绘（名称 / 描述 / 规格随语言变化） */
+    renderGrid();
+
+    /* 灯箱若正打开，同步刷新 */
+    if (options.refreshLightbox !== false && lb && lb.classList.contains('is-open') && lbProduct) {
+      paintLightbox();
+    }
+  }
+
+  /* 语言切换按钮 + 选择页 */
+  const langBtn = $('#langBtn');
+  function toggleLang() {
+    applyLang(isEn() ? 'zh' : 'en');
+    if (langBtn) langBtn.setAttribute('aria-label', isEn() ? '切换为中文' : 'Switch to Chinese');
+  }
+  if (langBtn) langBtn.addEventListener('click', toggleLang);
+
+  let gateDone = false;
+  /* 展示语言选择页（由加载动画结束后调用） */
+  function showGate() {
+    if (!gate || gateDone) return;
+    gate.classList.add('is-active');
+    const first = gate.querySelector('.gate__choice');
+    if (first) first.focus();
+  }
+  /* 选完语言：收起选择页并播放首屏动画 */
+  function closeGate() {
+    if (gateDone) return;
+    gateDone = true;
+    if (gate) gate.classList.add('is-hidden');
+    startHero();
+    /* 选择页淡出后移除，避免残留遮挡 */
+    setTimeout(() => { if (gate && gate.parentNode) gate.parentNode.removeChild(gate); }, 900);
+  }
+
+  (function initGate() {
+    if (!gate) { applyLang(lang, { refreshLightbox: false }); return; }
+
+    let saved = null;
+    try { saved = localStorage.getItem(LANG_KEY); } catch (e) { saved = null; }
+
+    if (saved === 'zh' || saved === 'en') {
+      /* 老访客：记住过选择，直接进站，不再打扰 */
+      applyLang(saved, { refreshLightbox: false });
+      closeGate();
+    } else {
+      /* 首次来访：以中文渲染站点（避免闪烁），等加载结束后弹出选择页 */
+      applyLang(lang, { refreshLightbox: false });
+      gate.addEventListener('click', (e) => {
+        const btn = e.target.closest('.gate__choice');
+        if (!btn) return;
+        applyLang(btn.getAttribute('data-lang'), { refreshLightbox: false });
+        closeGate();
+      });
+      pendingGate = true;
+    }
+  })();
+
   // 兜底：若资源加载慢，最多等 3.5 秒也揭开首屏
   window.addEventListener('load', () => setTimeout(finishLoading, 700));
   setTimeout(() => { if (!document.documentElement.classList.contains('is-loaded')) finishLoading(); }, 4000);
@@ -315,10 +481,13 @@
   /* =======================================================
      8. 分类筛选
      ======================================================= */
+  /* 注意：applyFilter 会在首屏渲染阶段（applyLang → renderGrid → applyFilter）
+     就被调用，因此元素引用必须先于渲染逻辑准备好。 */
   const filters  = $$('.filter');
   const emptyMsg = $('#gridEmpty');
 
   function applyFilter(id) {
+    currentFilter = id;
     filters.forEach(b => {
       const on = b.getAttribute('data-filter') === id;
       b.classList.toggle('is-active', on);
@@ -345,8 +514,8 @@
     btn.addEventListener('click', () => {
       const id = btn.getAttribute('data-jump');
       applyFilter(id);
-      const t = $('#products');
-      if (t) window.scrollTo({ top: t.offsetTop - 84, behavior: reduceMotion ? 'auto' : 'smooth' });
+      const target = $('#products');
+      if (target) window.scrollTo({ top: target.offsetTop - 84, behavior: reduceMotion ? 'auto' : 'smooth' });
     });
   });
 
@@ -370,9 +539,10 @@
   let lastFocus = null;
 
   const FINISH_LABEL = {
-    mirror: '镜光 MIRROR', brush: '拉丝 HAIRLINE',
-    sanding: '砂光 SATIN', base: '配件 ACCESSORY'
+    zh: { mirror: '镜光 MIRROR', brush: '拉丝 HAIRLINE', sanding: '砂光 SATIN', base: '配件 ACCESSORY' },
+    en: { mirror: 'Mirror polished', brush: 'Hairline brushed', sanding: 'Satin sanding', base: 'Accessory' }
   };
+  const finishLabel = f => (FINISH_LABEL[lang] || FINISH_LABEL.zh)[f] || '—';
 
   function preload(slug, i) {
     const im = new Image();
@@ -385,13 +555,33 @@
     const cat = CATEGORY_BY_ID[p.category];
 
     lbImg.src = viewImg(p.slug, lbIndex);
-    lbImg.alt = `${p.name} 实拍图 ${lbIndex}`;
-    if (lbCapCat)   lbCapCat.textContent = cat ? cat.name : '';
-    if (lbCapName)  lbCapName.textContent = `${p.name} · 图 ${pad2(lbIndex)}`;
-    if (lbCounter)  lbCounter.textContent = `${pad2(lbIndex)} / ${pad2(p.count)} · 共 ${p.count} 张实拍`;
+    lbImg.alt = isEn() ? `${pName(p)} — studio photo ${lbIndex}`
+                       : `${pName(p)} 实拍图 ${lbIndex}`;
+    if (lbCapCat)  lbCapCat.textContent = cName(cat);
+    if (lbCapName) lbCapName.textContent = t('lb.caption', { name: pName(p), i: pad2(lbIndex) });
+    if (lbCounter) lbCounter.textContent = t('lb.counter', { i: pad2(lbIndex), n: pad2(p.count) });
+
+    /* 规格随语言刷新 */
+    if (lbSpecs) {
+      const rows = [
+        [t('lb.specFinish'), finishLabel(p.finish)],
+        [t('lb.specShape'),  spec(p.shape)],
+        [t('lb.specColor'),  spec(p.color)]
+      ];
+      if (p.size && p.size !== p.shape) rows.splice(2, 0, [t('lb.specSize'), spec(p.size)]);
+      rows.push(
+        [t('lb.specMat'),   t('lb.material')],
+        [t('lb.specShots'), t('lb.shots', { n: p.count })],
+        [t('lb.specCat'),   cName(cat) || '—']
+      );
+      lbSpecs.innerHTML = rows
+        .map(r => `<div><dt>${r[0]}</dt><dd>${r[1]}</dd></div>`).join('');
+    }
 
     $$('button', lbThumbs).forEach((b) => {
-      b.classList.toggle('is-active', Number(b.getAttribute('data-i')) === lbIndex);
+      const i = Number(b.getAttribute('data-i'));
+      b.classList.toggle('is-active', i === lbIndex);
+      b.setAttribute('aria-label', isEn() ? `View photo ${i}` : `查看第 ${i} 张`);
     });
 
     preload(p.slug, lbIndex % p.count + 1);
@@ -406,26 +596,15 @@
     lastFocus = document.activeElement;
 
     const cat = CATEGORY_BY_ID[p.category];
-    if (lbCategory) lbCategory.textContent = cat ? `${cat.index} · ${cat.name}` : '';
-    if (lbName)     lbName.textContent = p.name;
+    if (lbCategory) lbCategory.textContent = cat ? `${cat.index} · ${cName(cat)}` : '';
+    if (lbName)     lbName.textContent = pName(p);
     if (lbEn)       lbEn.textContent = p.en;
-    if (lbDesc)     lbDesc.textContent = p.desc;
-    if (lbSpecs) {
-      const rows = [
-        ['表面工艺', FINISH_LABEL[p.finish] || '—'],
-        ['形状 / 规格', p.shape],
-        ['颜色', p.color],
-        ['材质', '食品级 304 不锈钢'],
-        ['实拍张数', p.count + ' 张'],
-        ['系列', cat ? cat.name : '—']
-      ];
-      lbSpecs.innerHTML = rows
-        .map(r => `<div><dt>${r[0]}</dt><dd>${r[1]}</dd></div>`).join('');
-    }
+    if (lbDesc)     lbDesc.textContent = pDesc(p);
+
     if (lbThumbs) {
       let html = '';
       for (let i = 1; i <= p.count; i++) {
-        html += `<button type="button" data-i="${i}" aria-label="查看第 ${i} 张">
+        html += `<button type="button" data-i="${i}" aria-label="${isEn() ? 'View photo ' + i : '查看第 ' + i + ' 张'}">
                    <img src="${cardImg(p.slug, i)}" alt="" width="1100" height="825" loading="lazy" decoding="async">
                  </button>`;
       }

@@ -18,11 +18,16 @@
       '美联美深耕不锈钢家居器物制造，以镜光、拉丝、砂光与激光工艺为核心，' +
       '将金属的冷冽与温润握感融合于一体。每一件器物都经过精工打磨与多道质检，' +
       '为酒店、餐饮与居家场景提供兼具质感与耐用的桌面美学方案。',
+    descEn:
+      'Meilianmei manufactures stainless-steel houseware built around four core finishes — ' +
+      'mirror, hairline, satin and laser. We combine the coolness of metal with a warm hand-feel; ' +
+      'every piece is precision-finished and inspected in multiple stages, offering hotels, ' +
+      'restaurants and homes a tabletop aesthetic that is both refined and durable.',
     stats: [
-      { value: '21', label: '款在售产品' },
-      { value: '4', label: '核心工艺' },
-      { value: '304', label: '食品级不锈钢' },
-      { value: '82', label: '张实拍素材' }
+      { value: '21', label: '款在售产品', labelEn: 'products available' },
+      { value: '4', label: '核心工艺', labelEn: 'core finishes' },
+      { value: '304', label: '食品级不锈钢', labelEn: 'food-grade stainless' },
+      { value: '82', label: '张实拍素材', labelEn: 'studio photographs' }
     ]
   };
 
@@ -39,24 +44,36 @@
     {
       id: 'shubian', index: '01',
       name: '竖边系列', en: 'VERTICAL EDGE SERIES',
+      nameEn: 'Vertical Edge Series',
+      descEn:
+        'A straight, vertical edge profile with crisp, upright lines. Mirror and hairline finishes, supplied as complete round sets.',
       desc: '直筒竖边立面，线条利落挺拔。镜光与拉丝两种表面处理，圆形套装成套出品。',
       cover: 'assets/img/view/shubian-mirror-gold-01.jpg'
     },
     {
       id: 'shaguang-brush', index: '02',
       name: '砂光拉丝系列', en: 'SATIN & HAIRLINE SERIES',
+      nameEn: 'Satin & Hairline Series',
+      descEn:
+        'A satin base with a hairline face, available in round, square, triangle and octagon shapes.',
       desc: '以砂光为底、拉丝为面的复合工艺，圆、方、三角、八边多形状可选。',
       cover: 'assets/img/view/shaguang-brush-square-gold-02.jpg'
     },
     {
       id: 'shaguang-laser', index: '03',
       name: '砂光激光系列', en: 'SATIN & LASER SERIES',
+      nameEn: 'Satin & Laser Series',
+      descEn:
+        'Laser-engraved textures over a satin surface, forming fine geometric light patterns on a matte base.',
       desc: '砂光表面叠加激光雕刻纹理，在哑光底面上呈现细腻的几何光纹。',
       cover: 'assets/img/view/shaguang-laser-round10-01.jpg'
     },
     {
       id: 'zuoshi', index: '04',
       name: '座式砂光系列', en: 'PEDESTAL SERIES',
+      nameEn: 'Pedestal Series',
+      descEn:
+        'A pedestal structure with body and base formed as one piece — composed, stable and made to be the centrepiece of the table.',
       desc: '带座式结构设计，壶身与底座一体成型，沉稳大气，适合作为桌面主角。',
       cover: 'assets/img/view/zuoshi-sanding-02.jpg'
     }
@@ -68,27 +85,39 @@
     {
       slug: 'shubian-mirror-gold',
       name: '竖边金色镜光套装', en: 'VERTICAL EDGE · MIRROR GOLD',
+      nameEn: 'Vertical Edge · Mirror Gold Set',
+      descEn:
+        'A straight vertical-edge body in mirror-polished gold. Reflections form a continuous band across the body and lid, giving a rich, layered finish.',
       category: 'shubian', finish: 'mirror',
-      shape: '圆形', size: '圆形套装', color: '金色', tag: '旗舰', count: 6,
+      shape: '圆形', size: '圆形套装', color: '金色', tag: '旗舰', tagEn: 'Flagship', count: 6,
       desc: '直筒竖边配以金色镜光表面，光影在筒身与盖面之间形成连续的反射带，成品色泽饱满、层次分明。'
     },
     {
       slug: 'shubian-mirror-silver',
       name: '竖边镜光套装', en: 'VERTICAL EDGE · MIRROR SILVER',
+      nameEn: 'Vertical Edge · Mirror Set',
+      descEn:
+        'A cool, silver-white mirror finish with clean geometry. The vertical wall gives the whole set a taller, more upright presence that suits many tabletop settings.',
       category: 'shubian', finish: 'mirror',
-      shape: '圆形', size: '圆形套装', color: '银色', tag: '经典', count: 6,
+      shape: '圆形', size: '圆形套装', color: '银色', tag: '经典', tagEn: 'Classic', count: 6,
       desc: '冷静的银白镜面，几何线条干净利落。竖边立面让整套器物的轮廓更显挺拔，适配多种桌面场景。'
     },
     {
       slug: 'shubian-brush-gold',
       name: '竖边拉丝金色圆形套装', en: 'VERTICAL EDGE · HAIRLINE GOLD',
+      nameEn: 'Vertical Edge · Hairline Gold Round Set',
+      descEn:
+        'Gold hairline grain combined with the vertical-edge structure: a warm tone beneath a matte metallic texture, and far less prone to fingerprints in daily use.',
       category: 'shubian', finish: 'brush',
-      shape: '圆形', size: '圆形套装', color: '金色', tag: '新品', count: 6,
+      shape: '圆形', size: '圆形套装', color: '金色', tag: '新品', tagEn: 'New', count: 6,
       desc: '金色发丝纹与竖边结构结合，金属哑光质感中透出温润暖调，日用不易留下指纹。'
     },
     {
       slug: 'shubian-brush-silver',
       name: '竖边拉丝银色圆形套装', en: 'VERTICAL EDGE · HAIRLINE SILVER',
+      nameEn: 'Vertical Edge · Hairline Silver Round Set',
+      descEn:
+        'Even, translucent silver hairline grain paired with the straight vertical profile — a restrained, refined industrial aesthetic.',
       category: 'shubian', finish: 'brush',
       shape: '圆形', size: '圆形套装', color: '银色', tag: '', count: 6,
       desc: '银白拉丝细纹均匀通透，搭配竖边直筒造型，呈现克制而高级的工业美学。'
@@ -96,8 +125,11 @@
     {
       slug: 'shubian-base',
       name: '竖边套装底座', en: 'VERTICAL EDGE · BASE',
+      nameEn: 'Vertical Edge · Set Base',
+      descEn:
+        'A thickened round base with the same vertical-edge treatment. It supports the main set body and lowers the overall centre of gravity.',
       category: 'shubian', finish: 'base',
-      shape: '圆形', size: '底座配件', color: '银色', tag: '配件', count: 4,
+      shape: '圆形', size: '底座配件', color: '银色', tag: '配件', tagEn: 'Accessory', count: 4,
       desc: '加厚圆形底座，边缘同样采用竖边工艺。用于承托套装主体，提升整体重心稳定性。'
     },
 
@@ -105,6 +137,9 @@
     {
       slug: 'shaguang-brush-round10',
       name: '砂光拉丝圆 10', en: 'SATIN HAIRLINE · ROUND 10',
+      nameEn: 'Satin & Hairline · Round 10',
+      descEn:
+        'A 10 cm round satin hairline coaster with an even grain across a wide surface — suitable as a coaster, dish rest or heat pad.',
       category: 'shaguang-brush', finish: 'brush',
       shape: '圆形', size: '10 cm', color: '银色', tag: '', count: 3,
       desc: '10 cm 圆形砂光拉丝底托，大面积细纹分布均匀，可作为杯垫、盘托或隔热垫使用。'
@@ -112,6 +147,9 @@
     {
       slug: 'shaguang-brush-round8',
       name: '砂光拉丝圆 8', en: 'SATIN HAIRLINE · ROUND 8',
+      nameEn: 'Satin & Hairline · Round 8',
+      descEn:
+        'The more compact 8 cm round size, ideal for small-diameter vessels and cups.',
       category: 'shaguang-brush', finish: 'brush',
       shape: '圆形', size: '8 cm', color: '银色', tag: '', count: 3,
       desc: '8 cm 圆形规格，尺寸更精巧，适合小口径器皿与杯具搭配使用。'
@@ -119,6 +157,9 @@
     {
       slug: 'shaguang-brush-square',
       name: '砂光拉丝正方形', en: 'SATIN HAIRLINE · SQUARE',
+      nameEn: 'Satin & Hairline · Square',
+      descEn:
+        'A right-angled square design with chamfered corners — crisp lines that will not catch the hand, ideal for orderly tabletop arrangements.',
       category: 'shaguang-brush', finish: 'brush',
       shape: '正方形', size: '方形', color: '银色', tag: '', count: 3,
       desc: '直角方形设计，边角经过倒角打磨，线条硬朗而不割手，适合规整的桌面陈列。'
@@ -126,6 +167,9 @@
     {
       slug: 'shaguang-brush-triangle',
       name: '砂光拉丝三角形', en: 'SATIN HAIRLINE · TRIANGLE',
+      nameEn: 'Satin & Hairline · Triangle',
+      descEn:
+        'A triangular outline that breaks with convention; pieces can be combined into geometric arrays for a stronger design statement.',
       category: 'shaguang-brush', finish: 'brush',
       shape: '三角形', size: '三角', color: '银色', tag: '', count: 3,
       desc: '三角形轮廓打破常规，可组合拼接成几何阵列，为桌面带来更强的设计感。'
@@ -133,6 +177,9 @@
     {
       slug: 'shaguang-brush-octagon',
       name: '砂光拉丝八边形', en: 'SATIN HAIRLINE · OCTAGON',
+      nameEn: 'Satin & Hairline · Octagon',
+      descEn:
+        'Eight chamfered edges strike a balance between round and square, for a more stable hold and placement.',
       category: 'shaguang-brush', finish: 'brush',
       shape: '八边形', size: '八边', color: '银色', tag: '', count: 3,
       desc: '八边切角在圆与方之间取得平衡，握持与摆放都更为稳定。'
@@ -140,6 +187,9 @@
     {
       slug: 'shaguang-brush-concave',
       name: '砂光拉丝内凹圆', en: 'SATIN HAIRLINE · CONCAVE',
+      nameEn: 'Satin & Hairline · Concave Round',
+      descEn:
+        'A dish-shaped centre recess that naturally collects moisture, combining heat insulation with overflow protection.',
       category: 'shaguang-brush', finish: 'brush',
       shape: '内凹圆', size: '内凹', color: '银色', tag: '', count: 3,
       desc: '中心内凹的碟形结构，可自然汇集水汽，兼顾隔热与防溢功能。'
@@ -147,20 +197,29 @@
     {
       slug: 'shaguang-brush-set10',
       name: '圆形砂光套装 10cm', en: 'SATIN HAIRLINE · ROUND SET 10',
+      nameEn: 'Satin Hairline Round Set · 10 cm',
+      descEn:
+        'A complete set built from 10 cm round satin pieces in consistent sizes — well suited to volume ordering and coordinated schemes.',
       category: 'shaguang-brush', finish: 'brush',
-      shape: '圆形', size: '10 cm 套装', color: '银色', tag: '成套', count: 6,
+      shape: '圆形', size: '10 cm 套装', color: '银色', tag: '成套', tagEn: 'Set', count: 6,
       desc: '以 10 cm 圆形砂光件组成的成套出品，尺寸统一，适合批量配置与整体方案搭配。'
     },
     {
       slug: 'shaguang-brush-square-gold',
       name: '方形金色拉丝套装', en: 'SATIN HAIRLINE · SQUARE GOLD',
+      nameEn: 'Satin Hairline · Square Gold Set',
+      descEn:
+        'A square base paired with a gold hairline surface: matte warm gold and right-angled outlines set each other off, and the set reads as one piece.',
       category: 'shaguang-brush', finish: 'brush',
-      shape: '正方形', size: '方形套装', color: '金色', tag: '推荐', count: 6,
+      shape: '正方形', size: '方形套装', color: '金色', tag: '推荐', tagEn: 'Recommended', count: 6,
       desc: '方形基底配合金色拉丝表面，哑光暖金与直角轮廓相互衬托，成套呈现更具整体感。'
     },
     {
       slug: 'shaguang-brush-square-silver',
       name: '银色方形套装', en: 'SATIN HAIRLINE · SQUARE SILVER',
+      nameEn: 'Satin Hairline · Square Silver Set',
+      descEn:
+        'A silver square set with a fine, consistent satin surface and uniform sizes, easy to use in groups.',
       category: 'shaguang-brush', finish: 'brush',
       shape: '正方形', size: '方形套装', color: '银色', tag: '', count: 5,
       desc: '银色方形成套出品，表面砂光细腻一致，规格统一便于成组使用。'
@@ -170,6 +229,9 @@
     {
       slug: 'shaguang-laser-round10',
       name: '砂光激光圆 10', en: 'SATIN LASER · ROUND 10',
+      nameEn: 'Satin Laser · Round 10',
+      descEn:
+        'Fine laser-engraved lines cut into a satin base, forming layer upon layer of pattern that appears and fades with the light.',
       category: 'shaguang-laser', finish: 'sanding',
       shape: '圆形', size: '10 cm', color: '银色', tag: '', count: 2,
       desc: '在砂光底面上以激光雕刻细密纹路，光线下形成若隐若现的图案层次。'
@@ -177,6 +239,9 @@
     {
       slug: 'shaguang-laser-round8',
       name: '砂光激光圆 8', en: 'SATIN LASER · ROUND 8',
+      nameEn: 'Satin Laser · Round 8',
+      descEn:
+        'An 8 cm laser-textured round piece with fine, detailed engraving — suited to detailed displays and smaller vessels.',
       category: 'shaguang-laser', finish: 'sanding',
       shape: '圆形', size: '8 cm', color: '银色', tag: '', count: 2,
       desc: '8 cm 规格的激光纹圆件，纹路精细，适合细节陈列与小件器皿。'
@@ -184,6 +249,9 @@
     {
       slug: 'shaguang-laser-square',
       name: '砂光激光正方形', en: 'SATIN LASER · SQUARE',
+      nameEn: 'Satin Laser · Square',
+      descEn:
+        'A regular, symmetrical laser pattern with crisp edges, ideal for aligning and piecing together.',
       category: 'shaguang-laser', finish: 'sanding',
       shape: '正方形', size: '方形', color: '银色', tag: '', count: 2,
       desc: '方形激光纹样规整对称，边线清晰，适合对位拼接摆放。'
@@ -191,6 +259,9 @@
     {
       slug: 'shaguang-laser-triangle',
       name: '砂光激光三角', en: 'SATIN LASER · TRIANGLE',
+      nameEn: 'Satin Laser · Triangle',
+      descEn:
+        'A triangular structure combined with laser texture: sharp geometry with more tension against a matte surface.',
       category: 'shaguang-laser', finish: 'sanding',
       shape: '三角形', size: '三角', color: '银色', tag: '', count: 2,
       desc: '三角形结构与激光纹理结合，锐利的几何感在哑光表面上更具张力。'
@@ -198,6 +269,9 @@
     {
       slug: 'shaguang-laser-octagon',
       name: '砂光激光八边', en: 'SATIN LASER · OCTAGON',
+      nameEn: 'Satin Laser · Octagon',
+      descEn:
+        'An octagonal outline with laser detail; every viewing angle gives a different reflection.',
       category: 'shaguang-laser', finish: 'sanding',
       shape: '八边形', size: '八边', color: '银色', tag: '', count: 2,
       desc: '八边轮廓配合激光细节，多角度观察均有不同的反光表现。'
@@ -205,6 +279,9 @@
     {
       slug: 'shaguang-laser-concave',
       name: '砂光激光内凹', en: 'SATIN LASER · CONCAVE',
+      nameEn: 'Satin Laser · Concave',
+      descEn:
+        'A concave dish form with a laser-textured face, where the recess creates a soft transition between light and shade.',
       category: 'shaguang-laser', finish: 'sanding',
       shape: '内凹圆', size: '内凹', color: '银色', tag: '', count: 2,
       desc: '内凹碟形搭配激光纹面，凹面在聚光时形成柔和的明暗过渡。'
@@ -214,8 +291,11 @@
     {
       slug: 'zuoshi-sanding',
       name: '座式砂光系列', en: 'PEDESTAL · SATIN SANDING',
+      nameEn: 'Pedestal · Satin Sanding Series',
+      descEn:
+        'A pedestal structure with body and base formed as one piece: a low centre of gravity and a composed stance. Fully satin-finished with soft, restrained lustre — the visual centrepiece of the table.',
       category: 'zuoshi', finish: 'sanding',
-      shape: '座式', size: '座式', color: '银色', tag: '主推', count: 7,
+      shape: '座式', size: '座式', color: '银色', tag: '主推', tagEn: 'Featured', count: 7,
       desc: '壶身与底座一体成型的座式结构，重心下沉、姿态稳重。整体砂光处理，光泽柔和内敛，是桌面场景中的视觉主体。'
     }
   ];
